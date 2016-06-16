@@ -40,7 +40,14 @@ return array(
     
     'controllers' => array(
         'invokables' => array(
-            'Market\Controller\Index' => Controller\IndexController::class
+            'Market\Controller\Index' => Controller\IndexController::class,
+            'market-view-controller' => Controller\ViewController::class,
+        ),
+        'factories' => array(
+            'market-post-controller' => Factory\PostControllerFactory::class,
+        ),
+        'aliases' => array(
+            'alt' => 'market-view-controller',
         ),
     ),
     

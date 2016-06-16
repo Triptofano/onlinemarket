@@ -7,8 +7,15 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
+
     public function indexAction()
     {
-        return new ViewModel();
+        $msg = array();
+
+        if ($this->flashMessenger()->hasMessages())
+            $msg = $this->flashMessenger()->getMessages();
+
+        return new ViewModel(array('msg' => $msg));
     }
+
 }
