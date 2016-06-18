@@ -1,7 +1,5 @@
 <?php
-
 namespace Market;
-
 return array(
     'router' => array(
         'routes' => array(
@@ -64,7 +62,7 @@ return array(
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),
         'template_path_stack' => array(
-            __DIR__ . '/../view',
+            'Market' => __DIR__ . '/../view',
         ),
     ),
     
