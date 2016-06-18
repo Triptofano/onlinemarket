@@ -1,41 +1,85 @@
 <?php
+
 namespace Market;
+
 return array(
     'router' => array(
         'routes' => array(
-            
-            'market' => array(
-                'type'    => 'Literal',
+            'home' => array(
+                'type' => 'Literal',
                 'options' => array(
-                    'route'    => '/market',
+                    'route' => '/',
                     'defaults' => array(
-                        'controller'    => 'Market\Controller\Index',
-                        'action'        => 'index',
+                        'controller' => 'Market\Controller\Index',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+            'market' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/market',
+                    'defaults' => array(
+                        'controller' => 'Market\Controller\Index',
+                        'action' => 'index',
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
+                    'view' => array(
+                        'type' => 'Literal',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
+                            'route' => '/view',
                             'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
+                                'controller' => 'market-view-controller',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'main' => array(
+                            'type' => 'Segment',
+                            'options' => array(
+                                'route' => '/main[/:category]',
+                                'constraints' => array(
+                                ),
+                                'defaults' => array(
+                                    'action' => 'index'
+                                ),
+                            ),
+                        ),
+                        'item' => array(
+                            'type' => 'Segment',
+                            'options' => array(
+                                'route' => '/item[/:itemId]',
+                                'constraints' => array(
+                                    'itemId' => '\d*'
+                                ),
+                                'defaults' => array(
+                                    'action' => 'item'
+                                ),
                             ),
                         ),
                     ),
-                ),          
+                    'post' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/post',
+                            'constraints' => array(
+                            ),
+                            'defaults' => array(
+                                'controller' => 'market-post-Controller',
+                                'action' => 'index'
+                            ),
+                        ),
+                    ),
+                ),
             ),
         ),
     ),
-    
     'service_manager' => array(
-        
     ),
-    
     'controllers' => array(
         'invokables' => array(
             'Market\Controller\Index' => Controller\IndexController::class,
@@ -48,22 +92,20 @@ return array(
             'alt' => 'market-view-controller',
         ),
     ),
-    
     'view_manager' => array(
         'display_not_found_reason' => true,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'exception_template'       => 'error/index',
+        'display_exceptions' => true,
+        'doctype' => 'HTML5',
+        'not_found_template' => 'error/404',
+        'exception_template' => 'error/index',
         'template_map' => array(
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+            'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'error/404' => __DIR__ . '/../view/error/404.phtml',
+            'error/index' => __DIR__ . '/../view/error/index.phtml',
         ),
         'template_path_stack' => array(
             'Market' => __DIR__ . '/../view',
         ),
     ),
-    
 );
