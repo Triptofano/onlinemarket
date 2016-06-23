@@ -16,9 +16,9 @@ return array(
                 ),
             ),
             'market' => array(
-                'type' => 'Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route' => '/market',
+                    'route' => '/market[/]',
                     'defaults' => array(
                         'controller' => 'Market\Controller\Index',
                         'action' => 'index',
@@ -27,11 +27,10 @@ return array(
                 'may_terminate' => true,
                 'child_routes' => array(
                     'view' => array(
-                        'type' => 'Literal',
+                        'type' => 'Segment',
                         'options' => array(
-                            'route' => '/view',
-                            'constraints' => array(
-                            ),
+                            'route' => '/view[/]',
+                            'constraints' => array(),
                             'defaults' => array(
                                 'controller' => 'market-view-controller',
                                 'action' => 'index'
@@ -41,9 +40,8 @@ return array(
                         'main' => array(
                             'type' => 'Segment',
                             'options' => array(
-                                'route' => '/main[/:category]',
-                                'constraints' => array(
-                                ),
+                                'route' => '/main[/:category][/]',
+                                'constraints' => array(),
                                 'defaults' => array(
                                     'action' => 'index'
                                 ),
@@ -52,7 +50,7 @@ return array(
                         'item' => array(
                             'type' => 'Segment',
                             'options' => array(
-                                'route' => '/item[/:itemId]',
+                                'route' => '/item[/:itemId][/]',
                                 'constraints' => array(
                                     'itemId' => '\d*'
                                 ),
@@ -63,11 +61,10 @@ return array(
                         ),
                     ),
                     'post' => array(
-                        'type' => 'Literal',
+                        'type' => 'Segment',
                         'options' => array(
-                            'route' => '/post',
-                            'constraints' => array(
-                            ),
+                            'route' => '/post[/]',
+                            'constraints' => array(),
                             'defaults' => array(
                                 'controller' => 'market-post-Controller',
                                 'action' => 'index'
@@ -78,8 +75,7 @@ return array(
             ),
         ),
     ),
-    'service_manager' => array(
-    ),
+    'service_manager' => array(),
     'controllers' => array(
         'invokables' => array(
             'Market\Controller\Index' => Controller\IndexController::class,
