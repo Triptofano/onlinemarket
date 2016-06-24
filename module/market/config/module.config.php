@@ -16,9 +16,9 @@ return array(
                 ),
             ),
             'market' => array(
-                'type' => 'Segment',
+                'type' => 'Literal',
                 'options' => array(
-                    'route' => '/market[/]',
+                    'route' => '/market',
                     'defaults' => array(
                         'controller' => 'Market\Controller\Index',
                         'action' => 'index',
@@ -26,10 +26,20 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
+                    'slash' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/',
+                            'defaults' => array(
+                                'controller' => 'Market\Controller\Index',
+                                'action' => 'index',
+                            ),
+                        ),
+                    ),
                     'view' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/view[/]',
+                            'route' => '/view',
                             'constraints' => array(),
                             'defaults' => array(
                                 'controller' => 'market-view-controller',
@@ -37,33 +47,35 @@ return array(
                             ),
                         ),
                         'may_terminate' => true,
-                        'main' => array(
-                            'type' => 'Segment',
-                            'options' => array(
-                                'route' => '/main[/:category][/]',
-                                'constraints' => array(),
-                                'defaults' => array(
-                                    'action' => 'index'
+                        'child_routes' => array(
+                            'main' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/main[/:category]',
+                                    'constraints' => array(),
+                                    'defaults' => array(
+                                        'action' => 'index'
+                                    ),
                                 ),
                             ),
-                        ),
-                        'item' => array(
-                            'type' => 'Segment',
-                            'options' => array(
-                                'route' => '/item[/:itemId][/]',
-                                'constraints' => array(
-                                    'itemId' => '\d*'
-                                ),
-                                'defaults' => array(
-                                    'action' => 'item'
+                            'item' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/item[/:itemId]',
+                                    'constraints' => array(
+                                        'itemId' => '\d*'
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'item'
+                                    ),
                                 ),
                             ),
                         ),
                     ),
                     'post' => array(
-                        'type' => 'Segment',
+                        'type' => 'Literal',
                         'options' => array(
-                            'route' => '/post[/]',
+                            'route' => '/post',
                             'constraints' => array(),
                             'defaults' => array(
                                 'controller' => 'market-post-Controller',
@@ -96,7 +108,7 @@ return array(
         'exception_template' => 'error/index',
         'template_map' => array(
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
-            'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
+            'market/index/index' => __DIR__ . '/../view/market/index/index.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
         ),
