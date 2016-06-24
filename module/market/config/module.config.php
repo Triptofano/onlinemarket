@@ -87,7 +87,12 @@ return array(
             ),
         ),
     ),
-    'service_manager' => array(),
+    'service_manager' => array(
+        'factories' => array(
+            'market-post-form' => Factory\PostFormFactory::class,
+            'market-post-filter' => Factory\PostFilterFactory::class,
+        ),
+    ),
     'controllers' => array(
         'invokables' => array(
             'Market\Controller\Index' => Controller\IndexController::class,
