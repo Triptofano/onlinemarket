@@ -17,6 +17,7 @@ class PostControllerFactory implements FactoryInterface
         $postController = new PostController();
         $postController->setCategories($categories);
         $postController->setPostForm($form);
+        $postController->setListingsTable($sm->get('listings-table'));
         
         return $postController;
     }

@@ -8,6 +8,8 @@ use Zend\View\Model\ViewModel;
 class IndexController extends AbstractActionController
 {
 
+    use ListingsTableTrait;
+
     public function indexAction()
     {
         $msg = array();
@@ -15,8 +17,12 @@ class IndexController extends AbstractActionController
         if ($this->flashMessenger()->hasMessages())
             $msg = $this->flashMessenger()->getMessages();
 
-        #return array('msg' => $msg);
-        return new ViewModel(array('msg' => $msg));
+        $itemRecent = $this->listingsTable->getLatestListings();
+
+        return new ViewModel(array(
+            'msg' => $msg,
+            'item' => $itemRecent
+        ));
     }
 
 }

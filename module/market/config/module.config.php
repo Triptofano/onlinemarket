@@ -89,17 +89,33 @@ return array(
     ),
     'service_manager' => array(
         'factories' => array(
+            'general-adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
             'market-post-form' => Factory\PostFormFactory::class,
             'market-post-filter' => Factory\PostFilterFactory::class,
+            'listings-table' => Factory\ListingsTableFactory::class,
+        ),
+        'services' => array(
+            'market-expire-days' => array(
+                5, 10, 15, 20, 25, 30
+            ),
+            'market-captcha-options' => array(
+                'font' => 'data/fonts/arial.ttf',
+                'width' => 250,
+                'height' => 100,
+                'dotNoiseLevel' => 40,
+                'lineNoiseLevel' => 3,
+                'imgDir' => 'public/captcha',
+                'imgUrl' => '/captcha'
+            ),
         ),
     ),
     'controllers' => array(
         'invokables' => array(
-            'Market\Controller\Index' => Controller\IndexController::class,
-            'market-view-controller' => Controller\ViewController::class,
         ),
         'factories' => array(
+            'Market\Controller\Index' => Factory\IndexControllerFactory::class,
             'market-post-controller' => Factory\PostControllerFactory::class,
+            'market-view-controller' => Factory\ViewControllerFactory::class,
         ),
         'aliases' => array(
             'alt' => 'market-view-controller',
